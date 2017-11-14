@@ -25,9 +25,15 @@
 
 #>
 
-# Terraform path
-$tf_path = "C:\tools\"
-$tf_arch = "amd64"
+# Set parameters
+param(
+	# Terraform path
+	[string] $tf_path = "",
+
+	# Terraform Arch to be downloaded
+	[string] $tf_arch = ""
+)
+
 $tf_release_url = "https://api.github.com/repos/hashicorp/terraform/releases/latest"
 
 # Check if last "\" was provided in $tf_path, if it was not, add it
