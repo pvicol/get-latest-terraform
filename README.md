@@ -11,6 +11,18 @@ If `terraform.exe` does not exist, it will be downloaded and installed in specif
   * \[`amd64`\]: 64-bit
   * \[`386`\]: 32-bit
 
+You can set the parameters values in the script file so you don't have to specify them in the command
+```powershell
+# Set parameters
+param(
+	# Terraform path
+	[string] $tf_path = "C:\tools",
+
+	# Terraform Arch to be downloaded
+	[string] $tf_arch = "amd64"
+)
+```
+
 ## Schedule Task
 See [Schedule a Task](https://technet.microsoft.com/en-us/library/cc748993(v=ws.11).aspx) page for more details
 
