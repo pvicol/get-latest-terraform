@@ -5,8 +5,9 @@ If `terraform.exe` does not exist, it will be downloaded and installed in specif
 
 ## Variables
 
-* \[`$tf_path`\]: String (required): Path to directory where terraform is located
-* \[`$tf_arch`\]: String (required): System architecture:
+* \[`tf_path`\]: String (required): Path to directory where terraform is located. Example:
+  * \[`C:\tools`\]
+* \[`tf_arch`\]: String (required): System architecture:
   * \[`amd64`\]: 64-bit
   * \[`386`\]: 32-bit
 
@@ -14,11 +15,11 @@ If `terraform.exe` does not exist, it will be downloaded and installed in specif
 See [Schedule a Task](https://technet.microsoft.com/en-us/library/cc748993(v=ws.11).aspx) page for more details
 
 Example one-line command:
-`schtasks.exe /Create /SC DAILY /MO 1 /TN "Terraform Updater" /TR "powershell \path\to\script\get-latest-terraform.ps1" /ST 12:00 /F`
+`schtasks.exe /Create /SC DAILY /MO 1 /TN "Terraform Updater" /TR "powershell \path\to\script\get-latest-terraform.ps1 -tf_path \"path\to\where\terraform\is\" -tf_arch \"amd64\"" /ST 12:00 /F`
 
 * \[`/SC DAILY`\]: Run daily
 * \[`/MO 1`\]: Every Day
 * \[`/TN "Terraform Updater"`\]: Task Name
-* \[`/TR "powershell \path\to\script\get-latest-terraform.ps1"`\]: Command to run
+* \[`/TR "powershell \path\to\script\get-latest-terraform.ps1 -tf_path \"path\to\where\terraform\is\" -tf_arch \"amd64\""`\]: Command to run
 * \[`/ST 12:00`\]: Run at 12 PM
 * \[`/F`\]: Force update
