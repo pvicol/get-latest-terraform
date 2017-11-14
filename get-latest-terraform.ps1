@@ -73,17 +73,17 @@ function get_latest_tf_version() {
 	return $web_content.tag_name.replace("v","")
 }
 
-# Check if current version is different than latest version
-if ((get_latest_tf_version) -ne (get_cur_tf_version)) {
-	# Write basic info to sceen
-	Write-Host "Current tf version: $(get_cur_tf_version)"
-	Write-Host "Latest tf Version: $(get_latest_tf_version)"
+function get_terraform () {
+	<#
+	.SYNOPSIS
+		Function will download and install latest version of terraform
+	.LINK
+		https://releases.hashicorp.com/terraform/$(get_latest_tf_version)/terraform_$(get_latest_tf_version)_windows_$tf_arch.zip
+	#>
 	Write-Host "Downloading latest version"
 
 	# Build download URL
 	$url = "https://releases.hashicorp.com/terraform/$(get_latest_tf_version)/terraform_$(get_latest_tf_version)_windows_$tf_arch.zip"
-
-	Write-Host $url
 
 	# Output folder (in location provided)
 	$download_location = $tf_path + "terraform.zip"
@@ -98,9 +98,27 @@ if ((get_latest_tf_version) -ne (get_cur_tf_version)) {
 	# Remove zip file
 	Write-Host "Remove zip file"
 	Remove-Item $download_location -Force
+}
 
-} else {
-	# If versions match, display message
+
+# Check if terraform exists in $tf_path
+if (-not (Test-Path ($tf_path + "terraform.exe"))){
+	Write-Host "Terraform could not be located in $tf_path"
+	Write-Host
+	get_terraform
+}
+
+# Check if current version is different than latest version
+elseif ((get_latest_tf_version) -ne (get_cur_tf_version)) {
+	# Write basic info to sceen
+	Write-Host "Current tf version: $(get_cur_tf_version)"
+	Write-Host "Latest tf Version: $(get_latest_tf_version)"
+	Write-Host
+	get_terraform
+}
+
+# If versions match, display message
+else {
 	Write-Host "Latest Terraform already installed."
 	Write-Host
 	Write-Host "Current tf version: $(get_cur_tf_version)"
