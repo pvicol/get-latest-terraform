@@ -18,13 +18,7 @@
 		386 - For 32-bit systems
 
 	ex: $tf_arch = "amd64"
-.PAREMETER $tf_versions
-	Array with terraform version numbers. Variable used in script.
-	Does not need to be set by the user. Adding this for reference.
 
-	Codes and Message:
-		0 = Current Version
-		1 = Latest Version
 .LINK
 	https://releases.hashicorp.com/terraform/$($LATEST_RELEASE)/terraform_$($LATEST_RELEASE)_windows_$($tf_arch).zip
 	https://api.github.com/repos/hashicorp/terraform/releases/latest
