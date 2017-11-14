@@ -1,3 +1,4 @@
 *.pssproj
 *.sln
-.vs
+.vs/
+.idea/
