@@ -68,7 +68,7 @@ function get_latest_tf_version() {
 	#>
 
 	# Get web content and convert from JSON
-	$web_content = Invoke-WebRequest -Uri $tf_release_url |	ConvertFrom-Json
+	$web_content = Invoke-WebRequest -Uri $tf_release_url -UseBasicParsing |	ConvertFrom-Json
 
 	return $web_content.tag_name.replace("v","")
 }
@@ -88,8 +88,11 @@ function get_terraform () {
 	# Output folder (in location provided)
 	$download_location = $tf_path + "terraform.zip"
 
-	# Download latest version
-	Invoke-WebRequest -Uri $url -OutFile $download_location > $null
+	# Set TLS to 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+    # Download terraform
+	Invoke-WebRequest -Uri $url -OutFile $download_location  > $null
 
 	# Unzip terraform and replace existing terraform file
 	Write-Host "Installing latest terraform"
